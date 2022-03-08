@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All_orders</title>
+</head>
+<body>
+<p><a href="/">Главная</a></p>
+<h3>Добавить заказ</h3>
+    <form action="/orders" method="POST">
+        <div>
+            <p>Название: <input name="name"></p>
+            <p>Описание:<input name="description"></p>
+            <p>Дата начала:<input name="start_date" placeholder="2022-02-23"></p>
+            <p>Дата окончания:<input name="end_date" placeholder="2023-02-23"></p>
+            <p>Адрес:<input name="address"></p>
+            <p>Цена:<input name="price"></p>
+            <p>Заказчик:<select name="customer_id">
+                {% for user in users %}
+                {%  if user.role == "customer" %}
+                <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                {% endif %}
+                {% endfor %}
+            </select></p>
+            <p>Исполнитель:<select name="executor_id">
+                {% for user in users%}
+                {%  if user.role == "executor" %}
+                <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                {% endif %}
+                {% endfor %}
+            </select></p>
+        </div>
+        <div>
+            <input type="submit" value="Добавить" class="button">
+        </div>
+    </form>
+<h2>Все заказы</h2>
+{% for order in orders %}
+<p><a href="/orders/{{order.id}}">{{order.name}}</a></p>
+<p>Даты:</p>
+<p>{{order.start_date}} - {{order.end_date}}</p>
+<p>Адрес: {{order.address}}</p>
+<p>Оплата: {{order.price}}</p>
+<hr>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Offer</title>
+</head>
+<body>
+<h2>{{orders[offer.order_id].name}}</h2>
+<p><a href="/orders/{{offer.order_id}}">Перейти к заказу</a></p>
+<p>Предлагает выполнить: <a href="/users/{{executor.id}}">{{executor.first_name}}
+    {{executor.last_name}}</a></p>
+<br>
+<br>
+<h2>Изменить предложение</h2>
+<form action="/offers/{{offer.id}}" method="POST">
+    <div>
+        <p>Заказ:<select name="order_id">
+            <option value="{{offer.order_id}}">{{order.name}}</option>
+            {% for order in orders %}
+            <option value="{{order.id}}">{{order.name}} за {{order.price}} руб.</option>
+            {% endfor %}
+        </select></p>
+        <p>Исполнитель:<select name="executor_id">
+            <option value="{{offer.executor_id}}">{{executor.first_name}} {{executor.last_name}}</option>
+            {% for user in users%}
+            {% if user.role == "executor" %}
+            <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+            {% endif %}
+            {% endfor %}
+        </select></p>
+        </div>
+        <div>
+            <input type="submit" value="Изменить" class="button">
+        </div>
+</form>
+<br>
+<form action="/offers/{{offer.id}}/delete" method="POST">
+    <div>
+        <input type="submit" value="Удалить заказ" class="button">
+    </div>
+</form>
+</body>
+</html>

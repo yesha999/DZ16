@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All_offers</title>
+</head>
+<body>
+<p><a href="/">Главная</a></p>
+<h3>Добавить предложение</h3>
+<form action="/offers" method="POST">
+    <div>
+        <p>Заказ:<select name="order_id">
+            {% for order in orders %}
+            <option value="{{order.id}}">{{order.name}} за {{order.price}} руб.</option>
+            {% endfor %}
+        </select></p>
+        <p>Исполнитель:<select name="executor_id">
+            {% for user in users%}
+            {% if user.role == "executor" %}
+            <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+            {% endif %}
+            {% endfor %}
+        </select></p>
+    </div>
+    <div>
+        <input type="submit" value="Добавить" class="button">
+    </div>
+</form>
+<h2>Все предложения</h2>
+{% for offer in offers %}
+<p><a href="/offers/{{offer.id}}">{{orders[offer.order_id].name}}</a></p>
+<p>Предлагает выполнить: <a href="/users/{{users[offer.executor_id-1].id}}">{{users[offer.executor_id-1].first_name}}
+    {{users[offer.executor_id-1].last_name}}</a></p>
+<hr>
+{% endfor %}
+</body>
+</html>

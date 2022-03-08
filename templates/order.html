@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+<h2>{{order.name}}</h2>
+<p>{{order.description}}</p>
+<p>Даты: {{order.start_date}} - {{order.end_date}}</p>
+<p>Адрес: {{order.address}}</p>
+<p>Оплата: {{order.price}}</p>
+<p>Заказчик: <a href="/users/{{order.customer_id}}">{{customer.first_name}}
+    {{customer.last_name}}</a></p>
+<p>Исполнитель: <a href="/users/{{executor.id}}">{{executor.first_name}}
+    {{executor.last_name}}</a></p>
+<br>
+<br>
+<h2>Изменить заказ</h2>
+<form action="/orders/{{order.id}}" method="POST">
+    <div>
+        <p>Название: <input name="name" value="{{order.name}}"></p>
+        <p>Описание:<input name="description" value="{{order.description}}"></p>
+        <p>Дата начала:<input name="start_date" value="{{order.start_date}}"></p>
+        <p>Дата окончания:<input name="end_date" value="{{order.start_date}}"></p>
+        <p>Адрес:<input name="address" value="{{order.address}}"></p>
+        <p>Цена:<input name="price" value="{{order.price}}"></p>
+        <p>Заказчик:<select name="customer_id">
+            <option value="{{order.customer_id}}">{{customer.first_name}} {{customer.last_name}}</option>
+            {% for user in users %}
+            {% if user.role == "customer" %}
+            <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+            {% endif %}
+            {% endfor %}
+        </select></p>
+        <p>Исполнитель:<select name="executor_id">
+            <option value="{{order.executor_id}}">{{executor.first_name}} {{executor.last_name}}</option>
+            {% for user in users%}
+            {% if user.role == "executor" %}
+            <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+            {% endif %}
+            {% endfor %}
+        </select></p>
+    </div>
+    <div>
+        <input type="submit" value="Изменить" class="button">
+    </div>
+</form>
+<br>
+<form action="/orders/{{order.id}}/delete" method="POST">
+    <div>
+        <input type="submit" value="Удалить заказ" class="button">
+    </div>
+</form>
+<hr>
+</body>
+</html>

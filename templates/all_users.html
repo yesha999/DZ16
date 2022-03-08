@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All_users</title>
+</head>
+<body>
+<p><a href="/">Главная</a></p>
+<main>
+    <h3>Добавить пользователя</h3>
+    <form action="/users" method="POST">
+        <div>
+            <p>Имя: <input name="first_name"></p>
+            <p>Фамилия:<input name="last_name"></p>
+            <p>Возраст:<input name="age"></p>
+            <p>E-mail:<input name="email"></p>
+            <p><select name="role">
+                <option>customer</option>
+                <option>executor</option>
+            </select></p>
+            <p>Номер телефона:<input name="phone"></p>
+
+        </div>
+        <div>
+            <input type="submit" value="Добавить" class="button">
+        </div>
+    </form>
+    <h2>Все пользователи</h2>
+    {% for user in users %}
+    <p><a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a> - {{user.role}}, {{user.age}} лет</p>
+    <hr>
+    {% endfor %}
+</main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<main>
+    <h2>{{user.first_name}} {{user.last_name}}, {{user.age}} лет</h2>
+    <p>{{user.role}}</p>
+    <p>email: {{user.email}}, телефон: {{user.phone}}</p>
+
+    <a href="/users">Все пользователи</a>
+
+    <h2>Изменить пользователя</h2>
+    <form action="/users/{{user.id}}" method="POST">
+        <div>
+            <p>Имя: <input name="first_name" value = "{{user.first_name}}"></p>
+            <p>Фамилия:<input name="last_name" value = "{{user.last_name}}"></p>
+            <p>Возраст:<input name="age" value = "{{user.age}}"></p>
+            <p>E-mail:<input name="email" value = "{{user.email}}"></p>
+            <p><select name="role">
+                <option>customer</option>
+                <option>executor</option>
+            </select></p>
+            <p>Номер телефона:<input name="phone" value="{{user.phone}}"></p>
+        </div>
+        <div>
+            <input type="submit" value="Изменить" class="button">
+        </div>
+    </form>
+    <br>
+    <form action="/users/{{user.id}}/delete" method="POST">
+        <div>
+            <input type="submit" value="Удалить пользователя" class="button">
+        </div>
+    </form>
+    
+</main>
+</body>
+</html>
